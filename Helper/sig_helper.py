@@ -26,9 +26,9 @@ from utils.Package import Package
 from Helper.package_helper import PackageHelper
 
 
-sig_info_url = "https://gitee.com/openeuler/community/raw/master/sig/sigs.yaml"
+url_sigs = "https://gitee.com/openeuler/community/tree/master/sig"
 sig_pattern = r"- name: (.*)"
-openeuler_software_pattern = r"- (openeuler/.*)"
+openeuler_software_pattern = r'"/openeuler/community/tree/master/sig/(.*)"'
 src_openeuler_software_pattern = r"- (src-openeuler/.*)"
 
 BlockList = [
@@ -43,18 +43,16 @@ class SigHelper(object):
         print("===== Start Init Sig Info... =====")
         tmp_sig = None
 
-        page = urllib.request.urlopen(sig_info_url)
+        page = urllib.request.urlopen(url_sigs)
         contents = page.read().decode('utf-8')
-        # print(contents)
+        pattern = re.compile(openeuler_software_pattern)
+        signames = pattern.findall(contents)
+        for signame in signames[1:]:
+            sig = Sig(signame)
+            sig_list.append(sig)
+        # print(sig_list)
         lines = contents.split("\n")
         for line in lines:
-            result = re.search(sig_pattern, line)
-            if result:
-                # print("get one sig: ", result.group(1))
-                tmp_sig = Sig(result.group(1))
-                sig_list.append(tmp_sig)
-                continue
-
             result = re.search(openeuler_software_pattern, line)
             if result:
                 # print("get one openeuler software: ", result.group(1))

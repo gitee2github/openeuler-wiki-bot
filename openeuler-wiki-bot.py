@@ -26,13 +26,13 @@ sig_list = []
 
 
 def init_parser():
-    cmd_parser = argparse.ArgumentParser(description="openEuler wiki bot.")
+    cmd_parser = argparse.ArgumentParser(description="The openEuler wiki robot.")
 
-    cmd_parser.add_argument("-l", "--list", action="store_true", default=False, help="List all sig info.")
-    cmd_parser.add_argument("-r", "--report", action="store_true", default=False, help="Generate information report.")
+    cmd_parser.add_argument("-l", "--list", action="store_true", default=False, help="list all sig names")
+    cmd_parser.add_argument("-r", "--report", action="store_true", default=False, help="generate information report")
 
-    cmd_parser.add_argument("-s", "--sig", type=str, help="Specify sig group.")
-    cmd_parser.add_argument("-a", "--all", action="store_true", default=False, help="Report information for all sig.")
+    cmd_parser.add_argument("-s", "--sig", type=str, help="get a specific sig information")
+    cmd_parser.add_argument("-a", "--all", action="store_true", default=False, help="get all sig information")
     return cmd_parser
 
 

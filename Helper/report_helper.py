@@ -97,8 +97,8 @@ class ReportHelper(object):
     @staticmethod
     def print_sig_list(sig_list):
         print("===== Start Print Sig List =====")
+        print("Total sig num: ", len(sig_list))
         for sig in sig_list:
             print(sig.get_sig_name())
-        print("Total sig num: ", len(sig_list))
         print("===== Print Sig List Done =====")
 
