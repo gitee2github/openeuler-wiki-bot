@@ -20,8 +20,8 @@ This is a wiki bot tool for assisting community governance
 import urllib.request
 import bs4
 
-from utils.Issue import Issue
-from utils.PullRequest import PullRequest
+from model.Issue import Issue
+from model.PullRequest import PullRequest
 
 
 class PackageHelper(object):

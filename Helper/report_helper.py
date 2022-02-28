@@ -100,5 +100,7 @@ class ReportHelper(object):
         print("Total sig num: ", len(sig_list))
         for sig in sig_list:
             print(sig.get_sig_name())
+            for maintainer in sig.get_maintainers():
+                print(maintainer.get_name())
         print("===== Print Sig List Done =====")
 

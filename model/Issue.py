@@ -18,27 +18,20 @@ This is a wiki bot tool for assisting community governance
 # ******************************************************************************/
 
 
-class Sig(object):
+class Issue(object):
 
-    def __init__(self, sigName):
-        self.__sigName = sigName
-        self.__packages = []
-        self.__maintainers = []
-        self.__committers = []
+    def __init__(self, title, url, status):
+        self.__title = title
+        self.__creator = None
+        self.__assigner = None
+        self.__description = None
+        self.__create_date = None
+        self.__url = url
+        self.__status = status
 
-    def add_software(self, software):
-        self.__packages.append(software)
+    def get_title(self):
+        return self.__title
 
-    def add_maintainer(self, maintainer):
-        self.__maintainers.append(maintainer)
-
-    def add_committer(self, committer):
-        self.__committers.append(committer)
-
-    def get_sig_name(self):
-        return self.__sigName
-
-    def get_package_list(self):
-        return self.__packages
-
+    def get_url(self):
+        return self.__url
 

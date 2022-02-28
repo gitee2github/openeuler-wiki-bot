@@ -70,6 +70,7 @@ def process_report(command_args):
 
 
 if __name__ == '__main__':
+    print("Welcome to use openEuler-wiki-bot.")
     parser = init_parser()
     args = parser.parse_args()
     if args.list:
@@ -78,3 +79,4 @@ if __name__ == '__main__':
         process_report(args)
     else:
         parser.print_help()
+    print("See you next time.")

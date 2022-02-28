@@ -12,33 +12,21 @@ This is a wiki bot tool for assisting community governance
 # IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
 # PURPOSE.
 # See the Mulan PSL v2 for more details.
-# Author: Hubble_Zhu
-# Create: 2021-01-12
+# Author: Sinever
+# Create: 2022-02-27
 # Description: This is a wiki bot tool for assisting community governance
 # ******************************************************************************/
 
+from model.Developer import Developer
 
-class Package(object):
 
-    def __init__(self, softwareName):
-        self.__package_name = softwareName
-        self.__issues = []
-        self.__pull_requests = []
+class Maintainer(Developer):
 
-    def add_issue(self, issue):
-        self.__issues.append(issue)
+    def __init__(self):
+        self.__received_prs = []
 
-    def add_pr(self, pull_request):
-        self.__pull_requests.append(pull_request)
+    def add_received_pr(self, received_pr):
+        self.__received_prs.append(received_pr)
 
-    def get_package_name(self):
-        return self.__package_name
-
-    def get_url(self):
-        return "https://gitee.com/" + self.__package_name
-
-    def get_issue_list(self):
-        return self.__issues
-
-    def get_pr_list(self):
-        return self.__pull_requests
+    def get_received_pr(self):
+        return self.__received_prs

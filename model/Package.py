@@ -18,19 +18,27 @@ This is a wiki bot tool for assisting community governance
 # ******************************************************************************/
 
 
-class Issue(object):
+class Package(object):
 
-    def __init__(self, title, url):
-        self.__title = title
-        self.__creator = None
-        self.__assigner = None
-        self.__description = None
-        self.__create_date = None
-        self.__url = url
+    def __init__(self, name):
+        self.__name = name
+        self.__issues = []
+        self.__pull_requests = []
 
-    def get_title(self):
-        return self.__title
+    def add_issue(self, issue):
+        self.__issues.append(issue)
+
+    def add_pr(self, pr):
+        self.__pull_requests.append(pr)
+
+    def get_package_name(self):
+        return self.__name
 
     def get_url(self):
-        return self.__url
+        return "https://gitee.com/" + self.__name
 
+    def get_issue_list(self):
+        return self.__issues
+
+    def get_pr_list(self):
+        return self.__pull_requests

@@ -20,16 +20,16 @@ This is a wiki bot tool for assisting community governance
 import urllib.request
 import re
 
-from utils.Sig import Sig
-from utils.Package import Package
+from model.Sig import Sig
+from model.Maintainer import Maintainer
+from model.Developer import Developer
 
 from Helper.package_helper import PackageHelper
 
 
-url_sigs = "https://gitee.com/openeuler/community/tree/master/sig"
-sig_pattern = r"- name: (.*)"
-openeuler_software_pattern = r'"/openeuler/community/tree/master/sig/(.*)"'
-src_openeuler_software_pattern = r"- (src-openeuler/.*)"
+URL_SIG = "https://gitee.com/openeuler/community/tree/master/sig/"
+PATTERN_SIG = r'"/openeuler/community/tree/master/sig/(.*)"'
+PATTERN_MAINTAINER = r"- (.*?)&#x000A;"
 
 BlockList = [
     "openeuler/blog",
@@ -43,37 +43,27 @@ class SigHelper(object):
         print("===== Start Init Sig Info... =====")
         tmp_sig = None
 
-        page = urllib.request.urlopen(url_sigs)
+        # 获取sig列表
+        page = urllib.request.urlopen(URL_SIG)
         contents = page.read().decode('utf-8')
-        pattern = re.compile(openeuler_software_pattern)
+        pattern = re.compile(PATTERN_SIG)
         signames = pattern.findall(contents)
         for signame in signames[1:]:
             sig = Sig(signame)
             sig_list.append(sig)
-        # print(sig_list)
-        lines = contents.split("\n")
-        for line in lines:
-            result = re.search(openeuler_software_pattern, line)
-            if result:
-                # print("get one openeuler software: ", result.group(1))
-                tmp_package = Package(result.group(1))
-                if tmp_package.get_package_name() in BlockList:
-                    # print(tmp_package.getSoftwareName(), " is blocked, skip and continue")
-                    continue
-                if tmp_sig:
-                    tmp_sig.add_software(tmp_package)
-                continue
 
-            result = re.search(src_openeuler_software_pattern, line)
-            if result:
-                # print("get one src-openeuler software: ", result.group(1))
-                tmp_package = Package(result.group(1))
-                if tmp_package.get_package_name() in BlockList:
-                    # print(tmp_package.getSoftwareName(), " is blocked, skip and continue")
-                    continue
-                if tmp_sig:
-                    tmp_sig.add_software(tmp_package)
-                continue
+        # 获取每个sig的各种信息
+        for sig in sig_list:
+            url_maintainer = URL_SIG + sig.get_sig_name() + "/OWNERS"
+            page = urllib.request.urlopen(url_maintainer)
+            contents = page.read().decode('utf-8')
+            pattern = re.compile(PATTERN_MAINTAINER)
+            maintainer_names = pattern.findall(contents)
+            print(sig.get_sig_name(), maintainer_names)
+            for maintainer_name in maintainer_names:
+                maintainer = Developer(maintainer_name)
+                sig.add_maintainer(maintainer)
+
         print("===== Init Sig Info Done =====")
 
     @staticmethod
