@@ -99,8 +99,12 @@ class ReportHelper(object):
         print("===== Start Print Sig List =====")
         print("Total sig num: ", len(sig_list))
         for sig in sig_list:
-            print(sig.get_sig_name())
+            print(sig.get_name())
+            print("maintainers:")
             for maintainer in sig.get_maintainers():
                 print(maintainer.get_name())
+            print("projects:")
+            for project in sig.get_projects():
+                print(project.get_name())
         print("===== Print Sig List Done =====")
 
