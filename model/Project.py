@@ -18,7 +18,7 @@ This is a wiki bot tool for assisting community governance
 # ******************************************************************************/
 
 
-class Package(object):
+class Project(object):
 
     def __init__(self, name):
         self.__name = name
@@ -31,14 +31,14 @@ class Package(object):
     def add_pr(self, pr):
         self.__pull_requests.append(pr)
 
-    def get_package_name(self):
+    def get_name(self):
         return self.__name
 
     def get_url(self):
         return "https://gitee.com/" + self.__name
 
-    def get_issue_list(self):
+    def get_issues(self):
         return self.__issues
 
-    def get_pr_list(self):
+    def get_pull_requests(self):
         return self.__pull_requests

@@ -21,6 +21,7 @@ import argparse
 from Helper.sig_helper import SigHelper
 from Helper.report_helper import ReportHelper
 
+from utils.log import logger
 
 sig_list = []
 
