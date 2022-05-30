@@ -19,9 +19,7 @@ This is a wiki bot tool for assisting community governance
 import argparse
 
 from Helper.sig_helper import SigHelper
-from Helper.report_helper import ReportHelper
-
-from utils.log import logger
+from report.excel import ReportHelper
 
 sig_list = []
 

@@ -27,21 +27,21 @@ class CompressedRotatingFileHandler(logging.handlers.RotatingFileHandler):
         self.stream = self._open()
 
 
-def logging_init(logFileDir, logFileName, maxBytes, backupCount):
-    if not os.path.exists(logFileDir):
-        os.makedirs(logFileDir, mode=0o644)
+def logging_init(logdir, filename, maxbytes, backupcount):
+    if not os.path.exists(logdir):
+        os.makedirs(logdir, mode=0o644)
 
     filename = os.path.join(
-        logFileDir,
-        logFileName + "_" + "runtime" + ".log"
+        logdir,
+        filename + "_" + "runtime" + ".log"
     )
-    log_object = logging.getLogger(logFileName)
+    log_object = logging.getLogger(filename)
     log_object.propagate = False
     log_object.setLevel(logging.DEBUG)
 
     file_handler = CompressedRotatingFileHandler(filename=filename,
-                                                 maxBytes=int(maxBytes),
-                                                 backupCount=int(backupCount))
+                                                 maxBytes=int(maxbytes),
+                                                 backupCount=int(backupcount))
 
     formatter = logging.Formatter(
         "%(asctime)s - %(name)s - %(levelname)s -"

@@ -12,35 +12,32 @@ This is a wiki bot tool for assisting community governance
 # IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
 # PURPOSE.
 # See the Mulan PSL v2 for more details.
-# Author: Hubble_Zhu
-# Create: 2021-01-12
+# Author: Sinever
+# Create: 2022-05-16
 # Description: This is a wiki bot tool for assisting community governance
 # ******************************************************************************/
-from utils.constant import SRC_OPENEULER
+
+import urllib.request
+import re
+
+from utils.log import logger
 
 
+def get_all_pattern_strings_from_a_url(url, pattern):
+    logger.info("Start to get all object names from a url.")
+    result = []
+    try:
+        page = urllib.request.urlopen(url)
+        contents = page.read().decode('utf-8')
+        compiled_pattern = re.compile(pattern)
+        result = compiled_pattern.findall(contents)
+    except urllib.error.URLError as e:
+        logger.warning(e)
+    logger.info("End to get all object names.")
+    return result
 
-class Project(object):
 
-    def __init__(self, name):
-        self.__name = name
-        self.__issues = []
-        self.__pull_requests = []
-
-    def add_issue(self, issue):
-        self.__issues.append(issue)
-
-    def add_pr(self, pr):
-        self.__pull_requests.append(pr)
-
-    def get_name(self):
-        return self.__name
-
-    def get_url(self):
-        return SRC_OPENEULER + self.__name
-
-    def get_issues(self):
-        return self.__issues
-
-    def get_pull_requests(self):
-        return self.__pull_requests
+FORMAT_ISSUE = r"(src-openeuler/tensorflow/issues/.*\?from=project-issue)"
+text = "https://gitee.com/src-openeuler/tensorflow/issues"
+if __name__ == '__main__':
+    print(get_all_pattern_strings_from_a_url(text, FORMAT_ISSUE))
