@@ -18,7 +18,7 @@ This is a wiki bot tool for assisting community governance
 # ******************************************************************************/
 
 import urllib.request
-import bs4
+#import bs4
 
 from model.Issue import Issue
 from model.PullRequest import PullRequest

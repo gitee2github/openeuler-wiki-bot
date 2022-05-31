@@ -27,6 +27,8 @@ from model.Project import Project
 
 from Helper.package_helper import PackageHelper
 from utils.log import logger
+from utils.weblib import get_all_pattern_strings_from_a_url
+from Helper.project_helper import ProjectHelp
 
 URL_SIG = "https://gitee.com/openeuler/community/tree/master/sig/"
 PATH_MAINTAINER = "/OWNERS"
@@ -53,12 +55,15 @@ class SigHelper(object):
 
         # 获取每个sig的project信息
         SigHelper.get_all_project_names(sig_list)
+        for sig in sig_list:
+            for project in sig.get_projects():
+                ProjectHelp.get_all_issues(project)
         logger.info("End to get sig info.")
 
     @staticmethod
     def get_all_sig_names(sig_list):
         logger.info("Start to get all sig names.")
-        names = SigHelper.get_all_object_names_from_a_url(URL_SIG, PATTERN_SIG)
+        names = get_all_pattern_strings_from_a_url(URL_SIG, PATTERN_SIG)
         for name in names[1:]:
             sig = Sig(name)
             sig_list.append(sig)
@@ -69,32 +74,18 @@ class SigHelper(object):
         logger.info("Start to get all maintainer names.")
         for sig in sig_list:
             url = URL_SIG + sig.get_name() + PATH_MAINTAINER
-            names = SigHelper.get_all_object_names_from_a_url(url, PATTERN_MAINTAINER)
+            names = get_all_pattern_strings_from_a_url(url, PATTERN_MAINTAINER)
             for name in names:
                 maintainer = Developer(name)
                 sig.add_maintainer(maintainer)
         logger.info("End to get all maintainer names.")
 
     @staticmethod
-    def get_all_object_names_from_a_url(url, pattern):
-        logger.info("Start to get all object names from a url.")
-        names = []
-        try:
-            page = urllib.request.urlopen(url)
-            contents = page.read().decode('utf-8')
-            compiled_pattern = re.compile(pattern)
-            names = compiled_pattern.findall(contents)
-        except urllib.error.URLError as e:
-            logger.warning(e)
-        logger.info("End to get all maintainer names.")
-        return names
-
-    @staticmethod
     def get_all_project_names(sig_list):
         logger.info("Start to get all project names.")
         for sig in sig_list:
             url = URL_SIG + sig.get_name() + PATH_PROJECT
-            names = SigHelper.get_all_object_names_from_a_url(url, PATTERN_PROJECT)
+            names = get_all_pattern_strings_from_a_url(url, PATTERN_PROJECT)
             print(sig.get_name(), names)
             for name in names:
                 project = Project(name)
