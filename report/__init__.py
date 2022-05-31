@@ -12,33 +12,7 @@ This is a wiki bot tool for assisting community governance
 # IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
 # PURPOSE.
 # See the Mulan PSL v2 for more details.
-# Author: Hubble_Zhu
-# Create: 2021-01-12
+# Author: Sinever
+# Create: 2022-05-20
 # Description: This is a wiki bot tool for assisting community governance
 # ******************************************************************************/
-from enum import Enum
-
-class Issue(object):
-
-    def __init__(self, title, url, status):
-        self.__title = title
-        self.__creator = None
-        self.__assigner = None
-        self.__description = None
-        self.__create_date = None
-        self.__url = url
-        self.__status = status
-
-    def get_title(self):
-        return self.__title
-
-    def get_url(self):
-        return self.__url
-
-
-class IssueStatus(Enum):
-    OPEN = 1
-    PROGRESSING = 2
-    CLOSED = 3
-    REJECTED = 4
-
