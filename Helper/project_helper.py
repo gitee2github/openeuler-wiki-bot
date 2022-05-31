@@ -16,9 +16,11 @@ This is a wiki bot tool for assisting community governance
 # Create: 2022-05-16
 # Description: This is a wiki bot tool for assisting community governance
 # ******************************************************************************/
+from model.Issue import Issue, IssueStatus
+
 from utils.log import logger
 from utils.weblib import get_all_pattern_strings_from_a_url
-from utils.constant import SRC_OPENEULER
+from utils.constant import SRC_OPENEULER, GITEE
 
 
 FORMAT_ISSUE = r"(src-openeuler/{}/issues/.*\?from=project-issue)"
@@ -30,7 +32,12 @@ class ProjectHelp(object):
     @staticmethod
     def get_all_issues(project):
         logger.info("Start to get all issues of a project.")
-        PATTERN_ISSUE = FORMAT_ISSUE.format(project.get_name())
-        issue_strings = get_all_pattern_strings_from_a_url(SRC_OPENEULER + project.get_name() + "/issues", PATTERN_ISSUE)
+        issues = []
+        patten_issue = FORMAT_ISSUE.format(project.get_name())
+        issue_strings = get_all_pattern_strings_from_a_url(SRC_OPENEULER + project.get_name() + "/issues", patten_issue)
         print(issue_strings)
+        for e in issue_strings:
+            issue = Issue('', GITEE + e, IssueStatus.OPEN)
+            issues.append(issue)
         logger.info("End to get all issues of a project.")
+        return issues
