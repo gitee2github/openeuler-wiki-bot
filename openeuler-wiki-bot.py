@@ -19,7 +19,7 @@ This is a wiki bot tool for assisting community governance
 import argparse
 
 from Helper.sig_helper import SigHelper
-from report.stand import ReportHelper
+from report.stand import StandReportHelper
 
 sig_list = []
 
@@ -37,7 +37,7 @@ def init_parser():
 
 def process_list():
     SigHelper.init_sig_info(sig_list)
-    ReportHelper.print_sig_list(sig_list)
+    StandReportHelper.print_sig_list(sig_list)
 
 
 def process_report_specified_sig(command_args):
@@ -47,7 +47,7 @@ def process_report_specified_sig(command_args):
             tmp_sig_list = [sig]
             SigHelper.process_sig_pr(tmp_sig_list)
             SigHelper.process_sig_issue(tmp_sig_list)
-            ReportHelper.generate_report(tmp_sig_list)
+            StandReportHelper.generate_report(tmp_sig_list)
             return
     print("Unrecognized sig: ", command_args.sig, ", please check input.")
 
@@ -56,7 +56,7 @@ def process_report_all():
     SigHelper.init_sig_info(sig_list)
     SigHelper.process_sig_pr(sig_list)
     SigHelper.process_sig_issue(sig_list)
-    ReportHelper.generate_report(sig_list)
+    StandReportHelper.generate_report(sig_list)
 
 
 def process_report(command_args):

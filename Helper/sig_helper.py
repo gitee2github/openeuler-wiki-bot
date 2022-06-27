@@ -16,12 +16,7 @@ This is a wiki bot tool for assisting community governance
 # Create: 2021-01-12
 # Description: This is a wiki bot tool for assisting community governance
 # ******************************************************************************/
-
-import urllib.request
-import re
-
 from model.Sig import Sig
-from model.Maintainer import Maintainer
 from model.Developer import Developer
 from model.Project import Project
 
@@ -54,13 +49,18 @@ class SigHelper(object):
         # SigHelper.get_all_maintainer_names(sig_list)
 
         # 获取每个sig的project信息
+        print("Start to get all projects of each sig.")
         SigHelper.get_all_project_names(sig_list)
         for sig in sig_list:
             for project in sig.get_projects():
+                print("Start to get all issues for project " + project.get_name())
                 issues = ProjectHelp.get_all_issues(project)
                 project.add_issue(issues)
+                print("End to get all issues for project " + project.get_name())
+                print("Start to get all pull requests for project " + project.get_name())
                 prs = ProjectHelp.get_all_prs(project)
                 project.add_pr(prs)
+                print("End to get all pull requests for project " + project.get_name())
         logger.info("End to get sig info.")
 
     @staticmethod
@@ -88,11 +88,12 @@ class SigHelper(object):
         logger.info("Start to get all project names.")
         for sig in sig_list:
             url = URL_SIG + sig.get_name() + PATH_PROJECT
+            print("Start to get projects for sig " + sig.get_name())
             names = get_all_pattern_strings_from_a_url(url, PATTERN_PROJECT)
-            print(sig.get_name(), names)
             for name in names:
                 project = Project(name)
                 sig.add_project(project)
+            print("End to get projects for sig " + sig.get_name())
         logger.info("End to get all project names.")
 
     @staticmethod
