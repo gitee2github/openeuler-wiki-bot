@@ -59,6 +59,8 @@ class SigHelper(object):
             for project in sig.get_projects():
                 issues = ProjectHelp.get_all_issues(project)
                 project.add_issue(issues)
+                prs = ProjectHelp.get_all_prs(project)
+                project.add_pr(prs)
         logger.info("End to get sig info.")
 
     @staticmethod

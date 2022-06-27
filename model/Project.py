@@ -19,7 +19,6 @@ This is a wiki bot tool for assisting community governance
 from utils.constant import SRC_OPENEULER
 
 
-
 class Project(object):
 
     def __init__(self, name):

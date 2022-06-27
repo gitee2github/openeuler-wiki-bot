@@ -18,6 +18,7 @@ This is a wiki bot tool for assisting community governance
 # ******************************************************************************/
 from enum import Enum
 
+
 class Issue(object):
 
     def __init__(self, title, url, status):
