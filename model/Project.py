@@ -27,10 +27,10 @@ class Project(object):
         self.__pull_requests = []
 
     def add_issue(self, issue):
-        self.__issues.append(issue)
+        self.__issues = issue
 
     def add_pr(self, pr):
-        self.__pull_requests.append(pr)
+        self.__pull_requests = pr
 
     def get_name(self):
         return self.__name

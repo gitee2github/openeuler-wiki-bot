@@ -45,7 +45,6 @@ class ProjectHelp(object):
         issues = []
         patten_issue = FORMAT_ISSUE.format(project.get_name())
         issue_strings = get_all_pattern_strings_from_a_url(SRC_OPENEULER + project.get_name() + "/issues", patten_issue)
-        print(issue_strings)
         for e in issue_strings:
             issue = Issue('', GITEE + e, IssueStatus.OPEN)
             issues.append(issue)
@@ -58,7 +57,6 @@ class ProjectHelp(object):
         prs = []
         patten_pr = FORMAT_PULLREQUEST.format(project.get_name())
         pr_strings = get_all_pattern_strings_from_a_url(SRC_OPENEULER + project.get_name() + "/pulls", patten_pr)
-        print(pr_strings)
         for e in pr_strings:
             pr = PullRequest('', GITEE + e, PullRequestStatus.OPEN)
             prs.append(pr)

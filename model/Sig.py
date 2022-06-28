@@ -39,5 +39,3 @@ class Sig(object):
 
     def get_maintainers(self):
         return self.__maintainers
-
-

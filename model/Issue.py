@@ -42,4 +42,3 @@ class IssueStatus(Enum):
     PROGRESSING = 2
     CLOSED = 3
     REJECTED = 4
-

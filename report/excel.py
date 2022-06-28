@@ -20,7 +20,7 @@ This is a wiki bot tool for assisting community governance
 import xlsxwriter
 
 
-class ReportHelper(object):
+class ExcelReportHelper(object):
 
     @staticmethod
     def generate_sheet_sig(sig_sheet, sig_list):
@@ -82,29 +82,14 @@ class ReportHelper(object):
         print("===== Start Generate Report =====")
         workbook = xlsxwriter.Workbook(file_path)
         sig_sheet = workbook.add_worksheet(name="sig_info")
-        ReportHelper.generate_sheet_sig(sig_sheet, sig_list)
+        ExcelReportHelper.generate_sheet_sig(sig_sheet, sig_list)
 
         pr_sheet = workbook.add_worksheet(name="pr_info")
-        ReportHelper.generate_sheet_pr(pr_sheet, sig_list)
+        ExcelReportHelper.generate_sheet_pr(pr_sheet, sig_list)
 
         issue_sheet = workbook.add_worksheet(name="issue_info")
-        ReportHelper.generate_sheet_issue(issue_sheet, sig_list)
+        ExcelReportHelper.generate_sheet_issue(issue_sheet, sig_list)
 
         workbook.close()
         print("===== Generate Report Done =====")
         print("Report file: ", file_path)
-
-    @staticmethod
-    def print_sig_list(sig_list):
-        print("===== Start Print Sig List =====")
-        print("Total sig num: ", len(sig_list))
-        for sig in sig_list:
-            print(sig.get_name())
-            print("maintainers:")
-            for maintainer in sig.get_maintainers():
-                print(maintainer.get_name())
-            print("projects:")
-            for project in sig.get_projects():
-                print(project.get_name())
-        print("===== Print Sig List Done =====")
-
