@@ -106,5 +106,9 @@ class ReportHelper(object):
             print("projects:")
             for project in sig.get_projects():
                 print(project.get_name())
+                for issue in project.get_issues():
+                    print(issue.get_url)
+                for pr in project.get_pull_requests():
+                    print(pr.get_url())
         print("===== Print Sig List Done =====")
 

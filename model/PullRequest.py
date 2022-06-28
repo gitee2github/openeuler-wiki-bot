@@ -16,20 +16,28 @@ This is a wiki bot tool for assisting community governance
 # Create: 2021-01-12
 # Description: This is a wiki bot tool for assisting community governance
 # ******************************************************************************/
+from enum import Enum
 
 
 class PullRequest(object):
 
-    def __init__(self, title, url):
+    def __init__(self, title, url, status):
         self.__title = title
         self.__creator = None
         self.__create_date = None
         self.__ci_status = None
         self.__url = url
-        self.__status = None
+        self.__status = status
 
     def get_title(self):
         return self.__title
 
     def get_url(self):
         return self.__url
+
+
+class PullRequestStatus(Enum):
+    OPEN = 1
+    PROGRESSING = 2
+    CLOSED = 3
+    REJECTED = 4
